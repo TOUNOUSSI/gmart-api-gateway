@@ -3,14 +3,42 @@ server:
  
 spring:
  application:
-   name: zuul-server
-   
+   name: GMART-API-GATEWAY      
+ security:
+     oauth2:
+      #Resource server for SSO/JWT authentication         
+      resourceserver:
+        jwt: 
+           jwk-set-uri: http://localhost:9092/.well-known/jwks.json
+           issuer-uri: http://localhost:9092/oauth/realms
+           
 zuul:
-   sensitiveHeaders: Cookie,Set-Cookie
-   
+  sensitiveHeaders: Cookie,Set-Cookie
+  
 eureka: 
  client:
    registerWithEureka: true
    fetchRegistry: true
+   registryFetchIntervalSeconds: 5
    serviceUrl:
       defaultZone: http://localhost:8761/eureka
+   
+
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 50000
+ribbon: 
+       ServerListRefreshInterval: 10                 
+       ConnectTimeout: 3000
+       ReadTimeout: 50000
+       
+#JWT properties //app.jwtSecret
+gmart:
+      jwt:
+          secret: JWTSuperSecretKey
+          expirationInMs: 604800000
+  
