@@ -4,13 +4,7 @@ server:
 spring:
  application:
    name: GMART-API-GATEWAY      
- security:
-     oauth2:
-      #Resource server for SSO/JWT authentication         
-      resourceserver:
-        jwt: 
-           jwk-set-uri: http://localhost:9092/.well-known/jwks.json
-           issuer-uri: http://localhost:9092/oauth/realms
+ 
            
 zuul:
   sensitiveHeaders: Cookie,Set-Cookie
@@ -35,10 +29,4 @@ ribbon:
        ServerListRefreshInterval: 10                 
        ConnectTimeout: 3000
        ReadTimeout: 50000
-       
-#JWT properties //app.jwtSecret
-gmart:
-      jwt:
-          secret: JWTSuperSecretKey
-          expirationInMs: 604800000
   
